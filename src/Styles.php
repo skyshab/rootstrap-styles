@@ -267,7 +267,7 @@ class Styles implements Contract {
      * @param string $id - the id to add to the styleblock
      * @return string
      */
-    private function getStyleblock( $id = false ) {
+    public function getStyleblock( $id = false ) {
 
         // open styleblock
         $block = ($id) ? sprintf( '<style id="%s">', esc_attr( $id ) ) : '<style>';
