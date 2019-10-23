@@ -39,7 +39,7 @@ interface Styles {
      * @param  array   $args
      * @return void
      */
-    public function custom_property( $args );
+    public function customProperty( $args );
 
     /**
      * Add a new screen.
@@ -50,7 +50,7 @@ interface Styles {
      * @param  array    $args
      * @return void
      */
-    public function add_screen( $name, $args );
+    public function addScreen( $name, $args );
 
     /**
      * Get the styles from all screens
@@ -59,7 +59,7 @@ interface Styles {
      * @access public
      * @return string
      */
-    public function get_styles();
+    public function getStyles();
 
     /**
      * Get the styles from all screens
@@ -68,15 +68,6 @@ interface Styles {
      * @access public
      * @return string
      */
-    public function get_styleblock( $id );
-
-    /**
-     * Print the styles by screen when in customize preview
-     *
-     * @since 1.0.0
-     * @access public
-     * @return string
-     */
-    public function get_customize_preview();
+    public function getStyleblock( $id );
 
 }
