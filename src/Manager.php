@@ -78,7 +78,7 @@ class Manager implements Bootable {
     // Action for adding styles
     // Adding actions for this hook needs to happen prior to "wp"
     public function registerStyles() {
-        do_action('rootstrap/theme/styles', $this->styles);
+        do_action("rootstrap/styles/{$this->handle}", $this->styles);
     }
 
     // Register the inline styles.
@@ -107,8 +107,7 @@ class Manager implements Bootable {
         $selector = sprintf('#%s-inline-css', $this->handle);
 
         // Filter to add controls that trigger style refresh.
-        // Filters need to be added prior to roostrap/customize-preview/partials
-        $controls = apply_filters('roostrap/theme/partials', []);
+        $controls = apply_filters("rootstrap/styles/{$this->handle}/previewRefresh", []);
 
         if( isset($manager->selective_refresh) ) {
 
