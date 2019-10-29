@@ -1,8 +1,8 @@
 {
 	"name"        : "skyshab/rootstrap-styles",
-	"description" : "Rootstrap is a collection of utilities for managing WordPress Customizer controls, settings, responsive breakpoints and styles.",
+	"description" : "Rootstrap Styles extends Rootstrap to create and manage theme styles.",
 	"keywords"    : [ "wordpress" ],
-	"homepage"    : "https://github.com/skyshab/rootstrap",
+	"homepage"    : "https://github.com/skyshab/rootstrap-styles",
 	"license"     : "GPL-2.0-or-later",
 	"authors"     : [
 		{
@@ -13,7 +13,7 @@
 		}
 	],
 	"support" : {
-		"issues" : "https://github.com/skyshab/rootstrap/issues"
+		"issues" : "https://github.com/skyshab/rootstrap-styles/issues"
 	},
 	"autoload" : {
 		"psr-4" : {
@@ -21,5 +21,7 @@
 		},
 		"files" : []
 	},
-	"require" : {}
+	"require" : {
+        "skyshab/rootstrap-screens" : ">=1.0"
+    }
 }

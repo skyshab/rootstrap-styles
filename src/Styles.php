@@ -48,13 +48,11 @@ class Styles implements Contract {
     /**
      * Setup our Styles object
      *
-     * Todo: make this only accept instances of a screens object
-     *
      * @since 1.0.0
-     * @param object $screens - a Screens object
+     * @param object $screens - a Screens Collection
      * @return void
      */
-    public function __construct( $screens = null ) {
+    public function __construct( Screens $screens = null ) {
         if( $screens === null ) {
             $screens = new Screens();
             $screens->add( 'default', [] );

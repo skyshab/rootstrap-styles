@@ -67,7 +67,7 @@ class CustomProperty implements Contract {
      * @param  array   $args
      * @return void
      */
-    public function __construct( $args = [] ) {
+    public function __construct( array $args = [] ) {
 
         $this->name = ( isset( $args['name'] ) ) ? $args['name'] : false;
         $this->selector = ( isset( $args['selector'] ) ) ? $args['selector'] : false;
@@ -86,7 +86,6 @@ class CustomProperty implements Contract {
      * @return string
      */
     public function screen() {
-
         return $this->screen;
     }
 

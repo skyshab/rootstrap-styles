@@ -12,6 +12,7 @@
 namespace Rootstrap\Styles;
 
 use Hybrid\Contracts\Bootable;
+use WP_Customize_Manager;
 
 /**
  * Class for theme styles.
@@ -31,7 +32,7 @@ class Manager implements Bootable {
     public $handle;
 
     /**
-     * Stores Styles instance.
+     * Stores Styles Collection.
      *
      * @since  1.0.0
      * @access public
@@ -43,10 +44,11 @@ class Manager implements Bootable {
      * Store handle and Styles object on instantiation.
      *
      * @since 1.0.0
-     * @param object $styles - instance of Rootstrap/Styles
+     * @param object $handle - theme stylesheet handle
+     * @param object $styles - Rootstrap Styles Collection
      * @return void
      */
-    public function __construct($handle, $styles) {
+    public function __construct( string $handle, Styles $styles ) {
 
         // If no handle or styles object, bail
         if(!$handle || !$styles) return;
@@ -65,6 +67,7 @@ class Manager implements Bootable {
      * @return object
      */
     public function boot() {
+
         // Action for interacting with the style object
         add_action( 'wp', [ $this, 'registerStyles' ] );
 
@@ -101,7 +104,7 @@ class Manager implements Bootable {
      * @access public
      * @return void
      */
-    public function partials($manager) {
+    public function partials( WP_Customize_Manager $manager) {
 
         // Define the styleblock id
         $selector = sprintf('#%s-inline-css', $this->handle);
