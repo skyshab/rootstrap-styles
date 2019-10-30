@@ -12,6 +12,7 @@
 namespace Rootstrap\Styles;
 
 use Hybrid\Contracts\Bootable;
+use Rootstrap\Screens\Screens;
 use WP_Customize_Manager;
 
 /**
@@ -44,19 +45,20 @@ class Manager implements Bootable {
      * Store associated stylesheet handle and Styles object on instantiation.
      *
      * @since 1.0.0
-     * @param object $handle - theme stylesheet handle
+     * @param string $handle - theme stylesheet handle
+     * @param object $screens - Screens Collection
      * @return void
      */
-    public function __construct( string $handle ) {
+    public function __construct( string $handle, Screens $screens ) {
 
         // If no handle, bail
-        if( ! $handle ) return;
+        if( ! $handle || ! $screens ) return;
 
         // Store the stylesheet handle
         $this->handle = $handle;
 
         // Create and store Styles Collection
-        $this->styles = new Styles();
+        $this->styles = new Styles( $screens );
     }
 
     /**
