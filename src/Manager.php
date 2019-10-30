@@ -41,23 +41,22 @@ class Manager implements Bootable {
     public $styles;
 
     /**
-     * Store handle and Styles object on instantiation.
+     * Store associated stylesheet handle and Styles object on instantiation.
      *
      * @since 1.0.0
      * @param object $handle - theme stylesheet handle
-     * @param object $styles - Rootstrap Styles Collection
      * @return void
      */
-    public function __construct( string $handle, Styles $styles ) {
+    public function __construct( string $handle ) {
 
-        // If no handle or styles object, bail
-        if(!$handle || !$styles) return;
+        // If no handle, bail
+        if( ! $handle ) return;
 
-        // Store the handle
+        // Store the stylesheet handle
         $this->handle = $handle;
 
-        // Store instance of Styles object.
-        $this->styles = $styles;
+        // Create and store Styles Collection
+        $this->styles = new Styles();
     }
 
     /**
