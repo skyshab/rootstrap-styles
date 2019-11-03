@@ -94,8 +94,7 @@ class Manager implements Bootable {
     // Get inline styles.
     // This should only be accessed after "wp"
     public function styles() {
-        $stylesObj = $this->styles;
-        return $stylesObj->getStyles();
+        return $this->styles->getStyles();
     }
 
     /**
@@ -103,9 +102,14 @@ class Manager implements Bootable {
      *
      * @since  1.0.0
      * @access public
+     * @param object $manager - instance of WP_Customize_Manager
      * @return void
      */
     public function partials( WP_Customize_Manager $manager) {
+
+        if( ! isset($manager->selective_refresh) ) {
+            return;
+        }
 
         // Define the styleblock id
         $selector = sprintf('#%s-inline-css', $this->handle);
@@ -113,18 +117,15 @@ class Manager implements Bootable {
         // Filter to add controls that trigger style refresh.
         $controls = apply_filters("rootstrap/styles/{$this->handle}/previewRefresh", []);
 
-        if( isset($manager->selective_refresh) ) {
-
-            // Add partials
-            array_map(function($id) use ($manager, $selector) {
-                $manager->selective_refresh->add_partial($id, [
-                    'selector'              => $selector,
-                    'render_callback'       => [$this, 'styles'],
-                    'container_inclusive'   => false,
-                    'settings'              => [$id],
-                    'fallback_refresh'      => false
-                ]);
-            }, $controls);
-        }
+        // Add partials
+        array_map(function($id) use ($manager, $selector) {
+            $manager->selective_refresh->add_partial($id, [
+                'selector'              => $selector,
+                'render_callback'       => [$this, 'styles'],
+                'container_inclusive'   => false,
+                'settings'              => [$id],
+                'fallback_refresh'      => true
+            ]);
+        }, $controls);
     }
 }
