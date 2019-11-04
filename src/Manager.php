@@ -72,8 +72,11 @@ class Manager implements Bootable {
         // Action for interacting with the style object
         add_action( 'wp', [ $this, 'registerStyles' ] );
 
-        // register inline styles
-        add_action( 'wp_enqueue_scripts', [ $this, 'addInlineStyles' ], PHP_INT_MAX );
+        // Add inline styles to front end
+        add_action( 'wp_enqueue_scripts', [ $this, 'publicStyles' ], PHP_INT_MAX );
+
+        // Add inline styles to customize preview
+        add_action( 'wp_head', [ $this, 'previewStyles' ] );
 
         // Add customize preview style refresh action
         add_action( 'rootstrap/customize-register/partials', [ $this, 'partials' ] );
@@ -85,10 +88,32 @@ class Manager implements Bootable {
         do_action("rootstrap/styles/{$this->handle}", $this->styles);
     }
 
-    // Register the inline styles.
-    // This needs to happen after the theme stylesheet has been registered.
-    public function addInlineStyles() {
+    // Register the inline styles after the theme stylesheet has been registered.
+    public function publicStyles() {
+
+        // We don't want to add this in the customize preview
+        if( is_customize_preview() ) {
+            return;
+        }
+
+        // Add the inline styles
         wp_add_inline_style( $this->handle, $this->styles() );
+    }
+
+    // Add styleblock to customize preview head.
+    public function previewStyles() {
+
+        // We only want to add this in the customize preview
+        if( ! is_customize_preview() ) {
+            return;
+        }
+
+        // Print a styleblock with classes for our script.
+        printf('<style id="%s-inline-css" class="rootstrap-style-block">%s</style>', $this->handle, $this->styles() );
+
+        // Print script for Chrome bug fix.
+        echo "<script>window.addEventListener('resize',()=>{document.querySelectorAll('.rootstrap-style-block').forEach(block=>{block.title=''})});</script>";
+
     }
 
     // Get inline styles.
