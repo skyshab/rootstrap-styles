@@ -14,6 +14,7 @@ namespace Rootstrap\Styles;
 use Hybrid\Contracts\Bootable;
 use Rootstrap\Screens\Screens;
 use WP_Customize_Manager;
+use function Rootstrap\vendor_path;
 
 /**
  * Class for theme styles.
@@ -65,7 +66,7 @@ class Manager implements Bootable {
      * Load resources.
      *
      * @since 1.0.0
-     * @return object
+     * @return void
      */
     public function boot() {
 
@@ -80,6 +81,8 @@ class Manager implements Bootable {
 
         // Add customize preview style refresh action
         add_action( 'rootstrap/customize-register/partials', [ $this, 'partials' ] );
+
+        add_action( 'customize_preview_init', [ $this, 'customizePreview'  ] );
     }
 
     // Action for adding styles
@@ -97,7 +100,7 @@ class Manager implements Bootable {
         }
 
         // Add the inline styles
-        wp_add_inline_style( $this->handle, $this->styles() );
+        wp_add_inline_style( $this->handle, $this->styles->getStyles() );
     }
 
     // Add styleblock to customize preview head.
@@ -108,8 +111,10 @@ class Manager implements Bootable {
             return;
         }
 
+        echo $this->styles->getCustomizePreview();
+
         // Print a styleblock with classes for our script.
-        printf('<style id="%s-inline-css" class="rootstrap-style-block">%s</style>', $this->handle, $this->styles() );
+        // printf('<style id="%s-inline-css" class="rootstrap-style-block">%s</style>', $this->handle, $this->styles() );
 
         // Print script for Chrome bug fix.
         echo "<script>window.addEventListener('resize',()=>{document.querySelectorAll('.rootstrap-style-block').forEach(block=>{block.title=''})});</script>";
@@ -118,9 +123,10 @@ class Manager implements Bootable {
 
     // Get inline styles.
     // This should only be accessed after "wp"
-    public function styles() {
-        return $this->styles->getStyles();
-    }
+    // public function styles() {
+    //     return $this->styles->getStyles();
+    // }
+
 
     /**
      * Refresh customize preview styles when these settings are changed.
@@ -143,14 +149,25 @@ class Manager implements Bootable {
         $controls = apply_filters("rootstrap/styles/{$this->handle}/previewRefresh", []);
 
         // Add partials
-        array_map(function($id) use ($manager, $selector) {
-            $manager->selective_refresh->add_partial($id, [
-                'selector'              => $selector,
-                'render_callback'       => [$this, 'styles'],
-                'container_inclusive'   => false,
-                'settings'              => [$id],
-                'fallback_refresh'      => true
+        array_map( function($id) use ($manager, $selector) {
+            $manager->selective_refresh->add_partial( $id, [
+                'selector'          => $selector,
+                'render_callback'   => [$this, 'styles'],
             ]);
-        }, $controls);
+        }, $controls );
+    }
+
+
+    /**
+     * Enqueue customize preview scripts
+     *
+     * If filters are applied defining file locations, load scripts.
+     *
+     * @since 1.0.0
+     */
+    public function customize_preview() {
+
+        $resources = vendor_path() . '/skyshab/rootstrap-sequences/dist';
+        wp_enqueue_script( 'rootstrap-customize-preview', "{$resources}/js/customize-preview.min.js", [], filemtime( get_template_directory().'/style.css' ) );
     }
 }

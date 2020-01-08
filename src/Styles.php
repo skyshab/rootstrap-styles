@@ -195,6 +195,36 @@ class Styles implements Contract {
         return $this->query( $output, $screen );
     }
 
+
+   /**
+     * Wrap styles in style element
+     *
+     * @since 1.0.0
+     * @param string $id - the id to add to the styleblock
+     * @return string
+     */
+    private function makeStyleblock( $styles, $id = false  ) {
+        // open styleblock
+        $block = ($id) ? sprintf( '<style id="%s">', esc_attr( $id ) ) : '<style>';
+        // get styles
+        $block .= $styles;
+        // close styleblock
+        $block .= '</style>';
+        // return styleblock
+        return $block;
+    }
+
+    /**
+     * Get Customizer Meta Placeholder
+     *
+     * @since 1.0.0
+     * @param string $id - the id to add to the styleblock
+     */
+    private function customizePlaceholder( $name ) {
+        $block_meta = sprintf( 'rootstrap-style-hook--%s', $name );
+        return sprintf('<meta id="%s" name="%s">', $block_meta, $block_meta );
+    }
+
     /**
      * Add a new style.
      *
@@ -259,24 +289,39 @@ class Styles implements Contract {
     }
 
     /**
-     * Get styles wrapped in a <style> element
+     * Get the styles from all screens
      *
      * @since 1.0.0
-     * @param string $id - the id to add to the styleblock
+     * @access public
      * @return string
      */
     public function getStyleblock( $id = false ) {
+        // set the block id
+        $block_id = ($id) ? sprintf( 'rootstrap-%s', $id ) : false;
+        // add the styleblock
+        return $this->makeStyleblock( $this->getStyles(), $block_id );
+    }
 
-        // open styleblock
-        $block = ($id) ? sprintf( '<style id="%s">', esc_attr( $id ) ) : '<style>';
-
-        // get styles
-        $block .= $this->getStyles();
-
-        // close styleblock
-        $block .= '</style>';
-
-        // return styleblock
+    /**
+     * Print the styles by screen when in customize preview
+     *
+     * @since 1.0.0
+     * @access public
+     * @return string
+     */
+    public function getCustomizePreview() {
+        $block = '';
+        // print styles and placeholder for each screen
+        foreach ( $this->sortScreens() as $name ) {
+            // get the styles
+            $screen_styles = $this->screenStyles( $name );
+            // set the block id
+            $block_id = sprintf( 'rootstrap-customize-%s', $name );
+            // add the styleblock
+            $block .= $this->makeStyleblock( $screen_styles, $block_id );
+            // add the placeholder
+            $block .= $this->customizePlaceholder( $name );
+        }
         return $block;
     }
 }
