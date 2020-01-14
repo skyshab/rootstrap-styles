@@ -1,137 +1,257 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
-/******/ })
-/************************************************************************/
-/******/ ({
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
-/***/ "./assets/js/CustomProperty.js":
-/*!*************************************!*\
-  !*** ./assets/js/CustomProperty.js ***!
-  \*************************************/
-/*! exports provided: CustomProperty */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"CustomProperty\", function() { return CustomProperty; });\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\n/**\n * Scripts for working with customizer preview actions\n *\n * @package   Rootstrap Styles\n * @author    Sky Shabatura\n * @copyright Copyright (c) 2019, Sky Shabatura\n * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html\n */\n\n/**\n * Class for adding CSS custom properties\n */\nvar CustomProperty =\n/*#__PURE__*/\nfunction () {\n  function CustomProperty(data) {\n    _classCallCheck(this, CustomProperty);\n\n    if (!data.name) return false;\n    this.screen = data.screen;\n    this.name = data.name;\n    this.id = this.screen ? \"\".concat(data.name, \"--\").concat(data.screen) : data.name;\n\n    if (data.value && '' !== data.value) {\n      this.value = data.value;\n      this.insertStyleblock();\n    } else {\n      this.removeStyleblock();\n    }\n  }\n\n  _createClass(CustomProperty, [{\n    key: \"insertStyleblock\",\n    value: function insertStyleblock() {\n      var oldBlock = document.getElementById(this.id);\n\n      if (oldBlock) {\n        oldBlock.innerHTML = this.getStyleBlockContent();\n      } else {\n        document.head.insertBefore(this.getStyleBlock(), this.getHook());\n      }\n    }\n  }, {\n    key: \"removeStyleblock\",\n    value: function removeStyleblock() {\n      var styleBlock = document.getElementById(this.id);\n\n      if (styleBlock) {\n        styleBlock.remove();\n      }\n    }\n  }, {\n    key: \"openQuery\",\n    value: function openQuery() {\n      if (!this.screen) return '';\n      var screens = parent.rootstrapData.screens;\n      var screen = screens[this.screen];\n      var query = '';\n\n      if (screen.min || screen.max) {\n        query += '@media ';\n\n        if (screen.min) {\n          query += \"(min-width: \".concat(screen.min, \")\");\n\n          if (screen.max) {\n            query += ' and ';\n          }\n        }\n\n        if (screen.max) {\n          query += \"(max-width: \".concat(screen.max, \")\");\n        }\n\n        query += '{';\n      }\n\n      return query;\n    }\n  }, {\n    key: \"getStyles\",\n    value: function getStyles() {\n      if (!this.name || !this.value) return '';\n      var output = ':root {';\n      output += \"--\".concat(this.name, \": \").concat(this.value, \";\");\n      output += '}';\n      return output;\n    }\n  }, {\n    key: \"closeQuery\",\n    value: function closeQuery() {\n      return this.screen && 'default' !== this.screen ? '}' : '';\n    }\n  }, {\n    key: \"getStyleBlockContent\",\n    value: function getStyleBlockContent() {\n      return this.openQuery() + this.getStyles() + this.closeQuery();\n    }\n  }, {\n    key: \"getStyleBlock\",\n    value: function getStyleBlock() {\n      var styleblock = document.createElement(\"style\");\n      styleblock.setAttribute(\"id\", this.id);\n      styleblock.textContent = this.getStyleBlockContent();\n      return styleblock;\n    }\n  }, {\n    key: \"getHook\",\n    value: function getHook() {\n      var screen = this.screen ? this.screen : 'default';\n      return document.getElementById(\"rootstrap-style-hook--\" + screen);\n    }\n  }]);\n\n  return CustomProperty;\n}();//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9hc3NldHMvanMvQ3VzdG9tUHJvcGVydHkuanM/OWIyYyJdLCJuYW1lcyI6WyJDdXN0b21Qcm9wZXJ0eSIsImRhdGEiLCJuYW1lIiwic2NyZWVuIiwiaWQiLCJ2YWx1ZSIsImluc2VydFN0eWxlYmxvY2siLCJyZW1vdmVTdHlsZWJsb2NrIiwib2xkQmxvY2siLCJkb2N1bWVudCIsImdldEVsZW1lbnRCeUlkIiwiaW5uZXJIVE1MIiwiZ2V0U3R5bGVCbG9ja0NvbnRlbnQiLCJoZWFkIiwiaW5zZXJ0QmVmb3JlIiwiZ2V0U3R5bGVCbG9jayIsImdldEhvb2siLCJzdHlsZUJsb2NrIiwicmVtb3ZlIiwic2NyZWVucyIsInBhcmVudCIsInJvb3RzdHJhcERhdGEiLCJxdWVyeSIsIm1pbiIsIm1heCIsIm91dHB1dCIsIm9wZW5RdWVyeSIsImdldFN0eWxlcyIsImNsb3NlUXVlcnkiLCJzdHlsZWJsb2NrIiwiY3JlYXRlRWxlbWVudCIsInNldEF0dHJpYnV0ZSIsInRleHRDb250ZW50Il0sIm1hcHBpbmdzIjoiOzs7Ozs7OztBQUFBOzs7Ozs7Ozs7QUFVQTs7O0FBR08sSUFBTUEsY0FBYjtBQUFBO0FBQUE7QUFFSSwwQkFBYUMsSUFBYixFQUFvQjtBQUFBOztBQUNoQixRQUFLLENBQUNBLElBQUksQ0FBQ0MsSUFBWCxFQUFrQixPQUFPLEtBQVA7QUFDbEIsU0FBS0MsTUFBTCxHQUFjRixJQUFJLENBQUNFLE1BQW5CO0FBQ0EsU0FBS0QsSUFBTCxHQUFZRCxJQUFJLENBQUNDLElBQWpCO0FBQ0EsU0FBS0UsRUFBTCxHQUFZLEtBQUtELE1BQVAsYUFBcUJGLElBQUksQ0FBQ0MsSUFBMUIsZUFBbUNELElBQUksQ0FBQ0UsTUFBeEMsSUFBbURGLElBQUksQ0FBQ0MsSUFBbEU7O0FBQ0EsUUFBR0QsSUFBSSxDQUFDSSxLQUFMLElBQWMsT0FBT0osSUFBSSxDQUFDSSxLQUE3QixFQUFvQztBQUNoQyxXQUFLQSxLQUFMLEdBQWFKLElBQUksQ0FBQ0ks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IiwiZmlsZSI6Ii4vYXNzZXRzL2pzL0N1c3RvbVByb3BlcnR5LmpzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBTY3JpcHRzIGZvciB3b3JraW5nIHdpdGggY3VzdG9taXplciBwcmV2aWV3IGFjdGlvbnNcbiAqXG4gKiBAcGFja2FnZSAgIFJvb3RzdHJhcCBTdHlsZXNcbiAqIEBhdXRob3IgICAgU2t5IFNoYWJhdHVyYVxuICogQGNvcHlyaWdodCBDb3B5cmlnaHQgKGMpIDIwMTksIFNreSBTaGFiYXR1cmFcbiAqIEBsaWNlbnNlICAgaHR0cDovL3d3dy5nbnUub3JnL2xpY2Vuc2VzL29sZC1saWNlbnNlcy9ncGwtMi4wLmh0bWxcbiAqL1xuXG5cbi8qKlxuICogQ2xhc3MgZm9yIGFkZGluZyBDU1MgY3VzdG9tIHByb3BlcnRpZXNcbiAqL1xuZXhwb3J0IGNsYXNzIEN1c3RvbVByb3BlcnR5IHtcblxuICAgIGNvbnN0cnVjdG9yKCBkYXRhICkge1xuICAgICAgICBpZiAoICFkYXRhLm5hbWUgKSByZXR1cm4gZmFsc2U7XG4gICAgICAgIHRoaXMuc2NyZWVuID0gZGF0YS5zY3JlZW47XG4gICAgICAgIHRoaXMubmFtZSA9IGRhdGEubmFtZTtcbiAgICAgICAgdGhpcy5pZCA9ICggdGhpcy5zY3JlZW4gKSA/IGAke2RhdGEubmFtZX0tLSR7ZGF0YS5zY3JlZW59YCA6IGRhdGEubmFtZTtcbiAgICAgICAgaWYoZGF0YS52YWx1ZSAmJiAnJyAhPT0gZGF0YS52YWx1ZSkge1xuICAgICAgICAgICAgdGhpcy52YWx1ZSA9IGRhdGEudmFsdWU7XG4gICAgICAgICAgICB0aGlzLmluc2VydFN0eWxlYmxvY2soKTtcbiAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICAgIHRoaXMucmVtb3ZlU3R5bGVibG9jaygpO1xuICAgICAgICB9XG4gICAgfVxuXG4gICAgaW5zZXJ0U3R5bGVibG9jaygpIHtcbiAgICAgICAgY29uc3Qgb2xkQmxvY2sgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCggdGhpcy5pZCApO1xuXG4gICAgICAgIGlmKCBvbGRCbG9jayApIHtcbiAgICAgICAgICAgIG9sZEJsb2NrLmlubmVySFRNTCA9IHRoaXMuZ2V0U3R5bGVCbG9ja0NvbnRlbnQoKTtcbiAgICAgICAgfVxuICAgICAgICBlbHNlIHtcbiAgICAgICAgICAgIGRvY3VtZW50LmhlYWQuaW5zZXJ0QmVmb3JlKCB0aGlzLmdldFN0eWxlQmxvY2soKSwgdGhpcy5nZXRIb29rKCkgKTtcbiAgICAgICAgfVxuICAgIH1cblxuICAgIHJlbW92ZVN0eWxlYmxvY2soKSB7XG4gICAgICAgIGNvbnN0IHN0eWxlQmxvY2sgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCggdGhpcy5pZCApO1xuXG4gICAgICAgIGlmKCBzdHlsZUJsb2NrICkge1xuICAgICAgICAgICAgc3R5bGVCbG9jay5yZW1vdmUoKTtcbiAgICAgICAgfVxuICAgIH1cblxuICAgIG9wZW5RdWVyeSgpIHtcbiAgICAgICAgaWYoICF0aGlzLnNjcmVlbiApIHJldHVybiAnJztcbiAgICAgICAgY29uc3Qgc2NyZWVucyA9IHBhcmVudC5yb290c3RyYXBEYXRhLnNjcmVlbnM7XG4gICAgICAgIGNvbnN0IHNjcmVlbiA9IHNjcmVlbnNbdGhpcy5zY3JlZW5dO1xuICAgICAgICB2YXIgcXVlcnkgPSAnJztcblxuICAgICAgICBpZiggc2NyZWVuLm1pbiB8fCBzY3JlZW4ubWF4ICkge1xuICAgICAgICAgICAgcXVlcnkgKz0gJ0BtZWRpYSAnO1xuXG4gICAgICAgICAgICBpZiggc2NyZWVuLm1pbiApIHtcbiAgICAgICAgICAgICAgICBxdWVyeSArPSBgKG1pbi13aWR0aDogJHtzY3JlZW4ubWlufSlgO1xuICAgICAgICAgICAgICAgIGlmKCBzY3JlZW4ubWF4ICkge1xuICAgICAgICAgICAgICAgICAgICBxdWVyeSArPSAnIGFuZCAnO1xuICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgaWYoIHNjcmVlbi5tYXggKSB7XG4gICAgICAgICAgICAgICAgcXVlcnkgKz0gYChtYXgtd2lkdGg6ICR7c2NyZWVuLm1heH0pYDtcbiAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgcXVlcnkgKz0gJ3snO1xuICAgICAgICB9XG5cbiAgICAgICAgcmV0dXJuIHF1ZXJ5O1xuICAgIH1cblxuICAgIGdldFN0eWxlcygpIHtcbiAgICAgICAgaWYoICF0aGlzLm5hbWUgfHwgIXRoaXMudmFsdWUgKSByZXR1cm4gJyc7XG4gICAgICAgIHZhciBvdXRwdXQgPSAnOnJvb3Qgeyc7XG4gICAgICAgIG91dHB1dCArPSBgLS0ke3RoaXMubmFtZX06ICR7dGhpcy52YWx1ZX07YDtcbiAgICAgICAgb3V0cHV0ICs9ICd9JztcbiAgICAgICAgcmV0dXJuIG91dHB1dDtcbiAgICB9XG5cbiAgICBjbG9zZVF1ZXJ5KCkge1xuICAgICAgICByZXR1cm4gKCB0aGlzLnNjcmVlbiAmJiAnZGVmYXVsdCcgIT09IHRoaXMuc2NyZWVuICkgPyAnfScgOiAnJztcbiAgICB9XG5cbiAgICBnZXRTdHlsZUJsb2NrQ29udGVudCgpIHtcbiAgICAgICAgcmV0dXJuIHRoaXMub3BlblF1ZXJ5KCkgKyB0aGlzLmdldFN0eWxlcygpICsgdGhpcy5jbG9zZVF1ZXJ5KCk7XG4gICAgfVxuXG4gICAgZ2V0U3R5bGVCbG9jaygpIHtcbiAgICAgICAgY29uc3Qgc3R5bGVibG9jayA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJzdHlsZVwiKTtcbiAgICAgICAgc3R5bGVibG9jay5zZXRBdHRyaWJ1dGUoXCJpZFwiLCB0aGlzLmlkKTtcbiAgICAgICAgc3R5bGVibG9jay50ZXh0Q29udGVudCA9IHRoaXMuZ2V0U3R5bGVCbG9ja0NvbnRlbnQoKTtcbiAgICAgICAgcmV0dXJuIHN0eWxlYmxvY2s7XG4gICAgfVxuXG4gICAgZ2V0SG9vaygpIHtcbiAgICAgICAgdmFyIHNjcmVlbiA9ICh0aGlzLnNjcmVlbikgPyB0aGlzLnNjcmVlbiA6ICdkZWZhdWx0JztcbiAgICAgICAgcmV0dXJuIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCBcInJvb3RzdHJhcC1zdHlsZS1ob29rLS1cIiArIHNjcmVlbiApO1xuICAgIH1cbn1cbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./assets/js/CustomProperty.js\n");
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
-/***/ }),
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-/***/ "./assets/js/Styles.js":
-/*!*****************************!*\
-  !*** ./assets/js/Styles.js ***!
-  \*****************************/
-/*! exports provided: Styles */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"Styles\", function() { return Styles; });\nfunction _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }\n\nfunction _nonIterableRest() { throw new TypeError(\"Invalid attempt to destructure non-iterable instance\"); }\n\nfunction _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === \"[object Arguments]\")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i[\"return\"] != null) _i[\"return\"](); } finally { if (_d) throw _e; } } return _arr; }\n\nfunction _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\n/**\n * Scripts for working with customizer preview actions\n *\n * @package   Rootstrap Styles\n * @author    Sky Shabatura\n * @copyright Copyright (c) 2019, Sky Shabatura\n * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html\n */\n\n/**\n * Class for adding styles\n */\nvar Styles =\n/*#__PURE__*/\nfunction () {\n  function Styles(data) {\n    _classCallCheck(this, Styles);\n\n    if (!data.id || !data.selector) return false;\n    this.screen = data.screen;\n    this.id = this.screen ? \"\".concat(data.id, \"--\").concat(data.screen) : data.id;\n    this.selector = data.selector;\n    this.styles = data.styles;\n    this.insertStyleblock();\n  }\n\n  _createClass(Styles, [{\n    key: \"insertStyleblock\",\n    value: function insertStyleblock() {\n      var oldBlock = document.getElementById(this.id);\n\n      if (oldBlock) {\n        oldBlock.innerHTML = this.getStyleBlockContent();\n      } else {\n        document.head.insertBefore(this.getStyleBlock(), this.getHook());\n      }\n    }\n  }, {\n    key: \"openQuery\",\n    value: function openQuery() {\n      if (!this.screen) return '';\n      var screens = parent.rootstrapData.screens;\n      var screen = screens[this.screen];\n      var query = '';\n\n      if (screen.min || screen.max) {\n        query += '@media ';\n\n        if (screen.min) {\n          query += \"(min-width: \".concat(screen.min, \")\");\n\n          if (screen.max) {\n            query += ' and ';\n          }\n        }\n\n        if (screen.max) {\n          query += \"(max-width: \".concat(screen.max, \")\");\n        }\n\n        query += '{';\n      }\n\n      return query;\n    }\n  }, {\n    key: \"getStyles\",\n    value: function getStyles() {\n      var styles = this.selector + '{';\n\n      for (var _i = 0, _Object$entries = Object.entries(this.styles); _i < _Object$entries.length; _i++) {\n        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),\n            property = _Object$entries$_i[0],\n            value = _Object$entries$_i[1];\n\n        if (!property || !value) continue;\n        styles += \"\".concat(property, \": \").concat(value, \";\");\n      }\n\n      styles += '}';\n      return styles;\n    }\n  }, {\n    key: \"closeQuery\",\n    value: function closeQuery() {\n      return this.screen ? '}' : '';\n    }\n  }, {\n    key: \"getStyleBlockContent\",\n    value: function getStyleBlockContent() {\n      return this.openQuery() + this.getStyles() + this.closeQuery();\n    }\n  }, {\n    key: \"getStyleBlock\",\n    value: function getStyleBlock() {\n      var styleblock = document.createElement(\"style\");\n      styleblock.setAttribute(\"id\", this.id);\n      styleblock.textContent = this.getStyleBlockContent();\n      return styleblock;\n    }\n  }, {\n    key: \"getHook\",\n    value: function getHook() {\n      var screen = this.screen ? this.screen : 'default';\n      return document.getElementById(\"rootstrap-style-hook--\" + screen);\n    }\n  }]);\n\n  return Styles;\n}();//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9hc3NldHMvanMvU3R5bGVzLmpzP2Y4NWEiXSwibmFtZXMiOlsiU3R5bGVzIiwiZGF0YSIsImlkIiwic2VsZWN0b3IiLCJzY3JlZW4iLCJzdHlsZXMiLCJpbnNlcnRTdHlsZWJsb2NrIiwib2xkQmxvY2siLCJkb2N1bWVudCIsImdldEVsZW1lbnRCeUlkIiwiaW5uZXJIVE1MIiwiZ2V0U3R5bGVCbG9ja0NvbnRlbnQiLCJoZWFkIiwiaW5zZXJ0QmVmb3JlIiwiZ2V0U3R5bGVCbG9jayIsImdldEhvb2siLCJzY3JlZW5zIiwicGFyZW50Iiwicm9vdHN0cmFwRGF0YSIsInF1ZXJ5IiwibWluIiwibWF4IiwiT2JqZWN0IiwiZW50cmllcyIsInByb3BlcnR5IiwidmFsdWUiLCJvcGVuUXVlcnkiLCJnZXRTdHlsZXMiLCJjbG9zZVF1ZXJ5Iiwic3R5bGVibG9jayIsImNyZWF0ZUVsZW1lbnQiLCJzZXRBdHRyaWJ1dGUiLCJ0ZXh0Q29udGVudCJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7OztBQUFBOzs7Ozs7Ozs7QUFVQTs7O0FBR08sSUFBTUEsTUFBYjtBQUFBO0FBQUE7QUFFSSxrQkFBYUMsSUFBYixFQUFvQjtBQUFBOztBQUNoQixRQUFLLENBQUNBLElBQUksQ0FBQ0MsRUFBTixJQUFZLENBQUNELElBQUksQ0FBQ0UsUUFBdkIsRUFBa0MsT0FBTyxLQUFQO0FBQ2xDLFNBQUtDLE1BQUwsR0FBY0gsSUFBSSxDQUFDRyxNQUFuQjtBQUNBLFNBQUtGLEVBQUwsR0FBWSxLQUFLRSxNQUFQLGFBQXFCSCxJQUFJLENBQUNDLEVBQTFCLGVBQWlDRCxJQUFJLENBQUNHLE1BQXRDLElBQWlESCxJQUFJLENBQUNDLEVBQWhFO0FBQ0EsU0FBS0MsUUFBTCxHQUFnQkYsSUFBSSxDQUFDRSxRQUFyQjtBQUNBLFNBQUtFLE1BQUwsR0FBY0osSUFBSSxDQUFDSSxNQUFuQjtBQUNBLFNBQUtDLGdCQUFMO0FBQ0g7O0FBVEw7QUFBQTtBQUFBLHVDQVd1QjtBQUNmLFVBQU1DLFFBQVEsR0FBR0MsUUFBUSxDQUFDQyxjQUFULENBQXlCLEtBQUtQLEVBQTlCLENBQWpCOztBQUVBLFVBQUlLLFFBQUosRUFBZTtBQUNYQSxnQkFBUSxDQUFDRyxTQUFULEdBQXFCLEtBQUtDLG9CQUFMLEVBQXJCO0FBQ0gsT0FGRCxNQUdLO0FBQ0RILGdCQUFRLENBQUNJLElBQVQsQ0FBY0MsWUFBZCxDQUE0QixLQUFLQyxhQUFMLEVBQTVCLEVBQWtELEtBQUtDLE9BQUwsRUFBbEQ7QUFDSDtBQUNKO0FBcEJMO0FBQUE7QUFBQSxnQ0FzQmdCO0FBQ1IsVUFBSSxDQUFDLEtBQUtYLE1BQVYsRUFBbUIsT0FBTyxFQUFQO0FBQ25CLFVBQU1ZLE9BQU8sR0FBR0MsTUFBTSxDQUFDQyxhQUFQLENBQXFCRixPQUFyQztBQUNBLFVBQU1aLE1BQU0sR0FBR1ksT0FBTyxDQUFDLEtBQUtaLE1BQU4sQ0FBdEI7QUFDQSxVQUFJZSxLQUFLLEdBQUcsRUFBWjs7QUFFQSxVQUFJZixNQUFNLENBQUNnQixHQUFQLElBQWNoQixNQUFNLENBQUNpQixHQUF6QixFQUErQjtBQUMzQkYsYUFBSyxJQUFJLFNBQVQ7O0FBRUEsWUFBSWYsTUFBTSxDQUFDZ0IsR0FBWCxFQUFpQjtBQUNiRCxlQUFLLDBCQUFtQmYsTUFBTSxDQUFDZ0IsR0FBMUIsTUFBTDs7QUFDQSxjQUFJaEIsTUFBTSxDQUFDaUIsR0FBWCxFQUFpQjtBQUNiRixpQkFBSyxJQUFJLE9BQVQ7QUFDSDtBQUNKOztBQUVELFlBQUlmLE1BQU0sQ0FBQ2lCLEdBQVgsRUFBaUI7QUFDYkYsZUFBSywwQkFBbUJmLE1BQU0sQ0FBQ2lCLEdBQTFCLE1BQUw7QUFDSDs7QUFFREYsYUFBSyxJQUFJLEdBQVQ7QUFDSDs7QUFFRCxhQUFPQSxLQUFQO0FBQ0g7QUE5Q0w7QUFBQTtBQUFBLGdDQWdEZ0I7QUFDUixVQUFJZCxNQUFNLEdBQUcsS0FBS0YsUUFBTCxHQUFnQixHQUE3Qjs7QUFDQSx5Q0FBZ0NtQixNQUFNLENBQUNDLE9BQVAsQ0FBZSxLQUFLbEIsTUFBcEIsQ0FBaEMscUNBQThEO0FBQUE7QUFBQSxZQUFsRG1CLFFBQWtEO0FBQUEsWUFBeENDLEtBQXdDOztBQUMxRCxZQUFJLENBQUNELFFBQUQsSUFBYSxDQUFDQyxLQUFsQixFQUEwQjtBQUMxQnBCLGNBQU0sY0FBT21CLFFBQVAsZUFBb0JDLEtBQXBCLE1BQU47QUFDSDs7QUFDRHBCLFlBQU0sSUFBSSxHQUFWO0FBRUEsYUFBT0EsTUFBUDtBQUNIO0FBekRMO0FBQUE7QUFBQSxpQ0EyRGlCO0FBQ1QsYUFBUyxLQUFLRCxNQUFQLEdBQWtCLEdBQWxCLEdBQXdCLEVBQS9CO0FBQ0g7QUE3REw7QUFBQTtBQUFBLDJDQStEMkI7QUFDbkIsYUFBTyxLQUFLc0IsU0FBTCxLQUFtQixLQUFLQyxTQUFMLEVBQW5CLEdBQXNDLEtBQUtDLFVBQUwsRUFBN0M7QUFDSDtBQWpFTDtBQUFBO0FBQUEsb0NBbUVvQjtBQUNaLFVBQU1DLFVBQVUsR0FBR3JCLFFBQVEsQ0FBQ3NCLGFBQVQsQ0FBdUIsT0FBdkIsQ0FBbkI7QUFDQUQsZ0JBQVUsQ0FBQ0UsWUFBWCxDQUF3QixJQUF4QixFQUE4QixLQUFLN0IsRUFBbkM7QUFDQTJCLGdCQUFVLENBQUNHLFdBQVgsR0FBeUIsS0FBS3JCLG9CQUFMLEVBQXpCO0FBQ0EsYUFBT2tCLFVBQVA7QUFDSDtBQXhFTDtBQUFBO0FBQUEsOEJBMEVjO0FBQ04sVUFBSXpCLE1BQU0sR0FBSSxLQUFLQSxNQUFOLEdBQWdCLEtBQUtBLE1BQXJCLEdBQThCLFNBQTNDO0FBQ0EsYUFBT0ksUUFBUSxDQUFDQyxjQUFULENBQXlCLDJCQUEyQkwsTUFBcEQsQ0FBUDtBQUNIO0FBN0VMOztBQUFBO0FBQUEiLCJmaWxlIjoiLi9hc3NldHMvanMvU3R5bGVzLmpzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBTY3JpcHRzIGZvciB3b3JraW5nIHdpdGggY3VzdG9taXplciBwcmV2aWV3IGFjdGlvbnNcbiAqXG4gKiBAcGFja2FnZSAgIFJvb3RzdHJhcCBTdHlsZXNcbiAqIEBhdXRob3IgICAgU2t5IFNoYWJhdHVyYVxuICogQGNvcHlyaWdodCBDb3B5cmlnaHQgKGMpIDIwMTksIFNreSBTaGFiYXR1cmFcbiAqIEBsaWNlbnNlICAgaHR0cDovL3d3dy5nbnUub3JnL2xpY2Vuc2VzL29sZC1saWNlbnNlcy9ncGwtMi4wLmh0bWxcbiAqL1xuXG5cbi8qKlxuICogQ2xhc3MgZm9yIGFkZGluZyBzdHlsZXNcbiAqL1xuZXhwb3J0IGNsYXNzIFN0eWxlcyB7XG5cbiAgICBjb25zdHJ1Y3RvciggZGF0YSApIHtcbiAgICAgICAgaWYgKCAhZGF0YS5pZCB8fCAhZGF0YS5zZWxlY3RvciApIHJldHVybiBmYWxzZTtcbiAgICAgICAgdGhpcy5zY3JlZW4gPSBkYXRhLnNjcmVlbjtcbiAgICAgICAgdGhpcy5pZCA9ICggdGhpcy5zY3JlZW4gKSA/IGAke2RhdGEuaWR9LS0ke2RhdGEuc2NyZWVufWAgOiBkYXRhLmlkO1xuICAgICAgICB0aGlzLnNlbGVjdG9yID0gZGF0YS5zZWxlY3RvcjtcbiAgICAgICAgdGhpcy5zdHlsZXMgPSBkYXRhLnN0eWxlcztcbiAgICAgICAgdGhpcy5pbnNlcnRTdHlsZWJsb2NrKCk7XG4gICAgfVxuXG4gICAgaW5zZXJ0U3R5bGVibG9jaygpIHtcbiAgICAgICAgY29uc3Qgb2xkQmxvY2sgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCggdGhpcy5pZCApO1xuXG4gICAgICAgIGlmKCBvbGRCbG9jayApIHtcbiAgICAgICAgICAgIG9sZEJsb2NrLmlubmVySFRNTCA9IHRoaXMuZ2V0U3R5bGVCbG9ja0NvbnRlbnQoKTtcbiAgICAgICAgfVxuICAgICAgICBlbHNlIHtcbiAgICAgICAgICAgIGRvY3VtZW50LmhlYWQuaW5zZXJ0QmVmb3JlKCB0aGlzLmdldFN0eWxlQmxvY2soKSwgdGhpcy5nZXRIb29rKCkgKTtcbiAgICAgICAgfVxuICAgIH1cblxuICAgIG9wZW5RdWVyeSgpIHtcbiAgICAgICAgaWYoICF0aGlzLnNjcmVlbiApIHJldHVybiAnJztcbiAgICAgICAgY29uc3Qgc2NyZWVucyA9IHBhcmVudC5yb290c3RyYXBEYXRhLnNjcmVlbnM7XG4gICAgICAgIGNvbnN0IHNjcmVlbiA9IHNjcmVlbnNbdGhpcy5zY3JlZW5dO1xuICAgICAgICB2YXIgcXVlcnkgPSAnJztcblxuICAgICAgICBpZiggc2NyZWVuLm1pbiB8fCBzY3JlZW4ubWF4ICkge1xuICAgICAgICAgICAgcXVlcnkgKz0gJ0BtZWRpYSAnO1xuXG4gICAgICAgICAgICBpZiggc2NyZWVuLm1pbiApIHtcbiAgICAgICAgICAgICAgICBxdWVyeSArPSBgKG1pbi13aWR0aDogJHtzY3JlZW4ubWlufSlgO1xuICAgICAgICAgICAgICAgIGlmKCBzY3JlZW4ubWF4ICkge1xuICAgICAgICAgICAgICAgICAgICBxdWVyeSArPSAnIGFuZCAnO1xuICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgaWYoIHNjcmVlbi5tYXggKSB7XG4gICAgICAgICAgICAgICAgcXVlcnkgKz0gYChtYXgtd2lkdGg6ICR7c2NyZWVuLm1heH0pYDtcbiAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgcXVlcnkgKz0gJ3snO1xuICAgICAgICB9XG5cbiAgICAgICAgcmV0dXJuIHF1ZXJ5O1xuICAgIH1cblxuICAgIGdldFN0eWxlcygpIHtcbiAgICAgICAgdmFyIHN0eWxlcyA9IHRoaXMuc2VsZWN0b3IgKyAneyc7XG4gICAgICAgIGZvciAoY29uc3QgW3Byb3BlcnR5LCB2YWx1ZV0gb2YgT2JqZWN0LmVudHJpZXModGhpcy5zdHlsZXMpICkge1xuICAgICAgICAgICAgaWYoICFwcm9wZXJ0eSB8fCAhdmFsdWUgKSBjb250aW51ZTtcbiAgICAgICAgICAgIHN0eWxlcyArPSBgJHtwcm9wZXJ0eX06ICR7dmFsdWV9O2A7XG4gICAgICAgIH1cbiAgICAgICAgc3R5bGVzICs9ICd9JztcblxuICAgICAgICByZXR1cm4gc3R5bGVzO1xuICAgIH1cblxuICAgIGNsb3NlUXVlcnkoKSB7XG4gICAgICAgIHJldHVybiAoIHRoaXMuc2NyZWVuICkgPyAnfScgOiAnJztcbiAgICB9XG5cbiAgICBnZXRTdHlsZUJsb2NrQ29udGVudCgpIHtcbiAgICAgICAgcmV0dXJuIHRoaXMub3BlblF1ZXJ5KCkgKyB0aGlzLmdldFN0eWxlcygpICsgdGhpcy5jbG9zZVF1ZXJ5KCk7XG4gICAgfVxuXG4gICAgZ2V0U3R5bGVCbG9jaygpIHtcbiAgICAgICAgY29uc3Qgc3R5bGVibG9jayA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJzdHlsZVwiKTtcbiAgICAgICAgc3R5bGVibG9jay5zZXRBdHRyaWJ1dGUoXCJpZFwiLCB0aGlzLmlkKTtcbiAgICAgICAgc3R5bGVibG9jay50ZXh0Q29udGVudCA9IHRoaXMuZ2V0U3R5bGVCbG9ja0NvbnRlbnQoKTtcbiAgICAgICAgcmV0dXJuIHN0eWxlYmxvY2s7XG4gICAgfVxuXG4gICAgZ2V0SG9vaygpIHtcbiAgICAgICAgdmFyIHNjcmVlbiA9ICh0aGlzLnNjcmVlbikgPyB0aGlzLnNjcmVlbiA6ICdkZWZhdWx0JztcbiAgICAgICAgcmV0dXJuIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCBcInJvb3RzdHJhcC1zdHlsZS1ob29rLS1cIiArIHNjcmVlbiApO1xuICAgIH1cbn1cblxuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./assets/js/Styles.js\n");
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-/***/ }),
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-/***/ "./assets/js/customize-preview.js":
-/*!****************************************!*\
-  !*** ./assets/js/customize-preview.js ***!
-  \****************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/**
+ * Class for adding live styles in the customize preview.
+ *
+ * @package   Rootstrap Styles
+ * @author    Sky Shabatura
+ * @copyright Copyright (c) 2020, Sky Shabatura
+ * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
+var Styles =
+/*#__PURE__*/
+function () {
+  "use strict";
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Styles_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Styles.js */ \"./assets/js/Styles.js\");\n/* harmony import */ var _CustomProperty_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CustomProperty.js */ \"./assets/js/CustomProperty.js\");\n/**\n * Scripts for working with customizer preview actions\n *\n * @package   Rootstrap Styles\n * @author    Sky Shabatura\n * @copyright Copyright (c) 2019, Sky Shabatura\n * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html\n */\n\n\n/**\n * Object for interfacing with rootstrap\n */\n\nvar rootstrap = {\n  screens: function screens() {\n    return Object.entries(parent.rootstrapData.screens);\n  },\n  style: function style(data) {\n    var style = new Styles(data);\n  },\n  \"var\": function _var(data) {\n    var customProperty = new CustomProperty(data);\n  }\n};//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9hc3NldHMvanMvY3VzdG9taXplLXByZXZpZXcuanM/NzdjNyJdLCJuYW1lcyI6WyJyb290c3RyYXAiLCJzY3JlZW5zIiwiT2JqZWN0IiwiZW50cmllcyIsInBhcmVudCIsInJvb3RzdHJhcERhdGEiLCJzdHlsZSIsImRhdGEiLCJTdHlsZXMiLCJjdXN0b21Qcm9wZXJ0eSIsIkN1c3RvbVByb3BlcnR5Il0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTs7Ozs7Ozs7QUFTQTtBQUNBO0FBR0E7Ozs7QUFHQSxJQUFNQSxTQUFTLEdBQUc7QUFDZEMsU0FBTyxFQUFHLG1CQUFNO0FBQ1osV0FBT0MsTUFBTSxDQUFDQyxPQUFQLENBQWdCQyxNQUFNLENBQUNDLGFBQVAsQ0FBcUJKLE9BQXJDLENBQVA7QUFDSCxHQUhhO0FBSWRLLE9BQUssRUFBRyxlQUFDQyxJQUFELEVBQVU7QUFDZCxRQUFNRCxLQUFLLEdBQUcsSUFBSUUsTUFBSixDQUFZRCxJQUFaLENBQWQ7QUFDSCxHQU5hO0FBT2QsU0FBTSxjQUFDQSxJQUFELEVBQVU7QUFDWixRQUFNRSxjQUFjLEdBQUcsSUFBSUMsY0FBSixDQUFvQkgsSUFBcEIsQ0FBdkI7QUFDSDtBQVRhLENBQWxCIiwiZmlsZSI6Ii4vYXNzZXRzL2pzL2N1c3RvbWl6ZS1wcmV2aWV3LmpzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBTY3JpcHRzIGZvciB3b3JraW5nIHdpdGggY3VzdG9taXplciBwcmV2aWV3IGFjdGlvbnNcbiAqXG4gKiBAcGFja2FnZSAgIFJvb3RzdHJhcCBTdHlsZXNcbiAqIEBhdXRob3IgICAgU2t5IFNoYWJhdHVyYVxuICogQGNvcHlyaWdodCBDb3B5cmlnaHQgKGMpIDIwMTksIFNreSBTaGFiYXR1cmFcbiAqIEBsaWNlbnNlICAgaHR0cDovL3d3dy5nbnUub3JnL2xpY2Vuc2VzL29sZC1saWNlbnNlcy9ncGwtMi4wLmh0bWxcbiAqL1xuXG5pbXBvcnQgJy4vU3R5bGVzLmpzJztcbmltcG9ydCAnLi9DdXN0b21Qcm9wZXJ0eS5qcyc7XG5cblxuLyoqXG4gKiBPYmplY3QgZm9yIGludGVyZmFjaW5nIHdpdGggcm9vdHN0cmFwXG4gKi9cbmNvbnN0IHJvb3RzdHJhcCA9IHtcbiAgICBzY3JlZW5zIDogKCkgPT4ge1xuICAgICAgICByZXR1cm4gT2JqZWN0LmVudHJpZXMoIHBhcmVudC5yb290c3RyYXBEYXRhLnNjcmVlbnMgKTtcbiAgICB9LFxuICAgIHN0eWxlIDogKGRhdGEpID0+IHtcbiAgICAgICAgY29uc3Qgc3R5bGUgPSBuZXcgU3R5bGVzKCBkYXRhICk7XG4gICAgfSxcbiAgICB2YXIgOiAoZGF0YSkgPT4ge1xuICAgICAgICBjb25zdCBjdXN0b21Qcm9wZXJ0eSA9IG5ldyBDdXN0b21Qcm9wZXJ0eSggZGF0YSApO1xuICAgIH1cbn07Il0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./assets/js/customize-preview.js\n");
+  function Styles(data) {
+    _classCallCheck(this, Styles);
 
-/***/ }),
+    if (!data.id || !data.selector) return false;
+    this.screen = data.screen;
+    this.id = this.screen ? "".concat(data.id, "--").concat(data.screen) : data.id;
+    this.selector = data.selector;
+    this.styles = data.styles;
+    this.insertStyleblock();
+  }
 
-/***/ 0:
-/*!**********************************************!*\
-  !*** multi ./assets/js/customize-preview.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+  _createClass(Styles, [{
+    key: "insertStyleblock",
+    value: function insertStyleblock() {
+      var oldBlock = document.getElementById(this.id);
 
-module.exports = __webpack_require__(/*! /Users/sky/Repos/skyshab/rootstrap-styles/assets/js/customize-preview.js */"./assets/js/customize-preview.js");
+      if (oldBlock) {
+        oldBlock.innerHTML = this.getStyleBlockContent();
+      } else {
+        document.head.insertBefore(this.getStyleBlock(), this.getHook());
+      }
+    }
+  }, {
+    key: "openQuery",
+    value: function openQuery() {
+      if (!this.screen) return '';
+      var screens = rootstrapScreens;
+      var screen = screens[this.screen];
+      var query = '';
+
+      if (screen.min || screen.max) {
+        query += '@media ';
+
+        if (screen.min) {
+          query += "(min-width: ".concat(screen.min, ")");
+
+          if (screen.max) {
+            query += ' and ';
+          }
+        }
+
+        if (screen.max) {
+          query += "(max-width: ".concat(screen.max, ")");
+        }
+
+        query += '{';
+      }
+
+      return query;
+    }
+  }, {
+    key: "getStyles",
+    value: function getStyles() {
+      var styles = this.selector + '{';
+
+      for (var _i = 0, _Object$entries = Object.entries(this.styles); _i < _Object$entries.length; _i++) {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+            property = _Object$entries$_i[0],
+            value = _Object$entries$_i[1];
+
+        if (!property || !value) continue;
+        styles += "".concat(property, ": ").concat(value, ";");
+      }
+
+      styles += '}';
+      return styles;
+    }
+  }, {
+    key: "closeQuery",
+    value: function closeQuery() {
+      return this.screen ? '}' : '';
+    }
+  }, {
+    key: "getStyleBlockContent",
+    value: function getStyleBlockContent() {
+      return this.openQuery() + this.getStyles() + this.closeQuery();
+    }
+  }, {
+    key: "getStyleBlock",
+    value: function getStyleBlock() {
+      var styleblock = document.createElement("style");
+      styleblock.setAttribute("id", this.id);
+      styleblock.textContent = this.getStyleBlockContent();
+      return styleblock;
+    }
+  }, {
+    key: "getHook",
+    value: function getHook() {
+      var screen = this.screen ? this.screen : 'default';
+      return document.getElementById("rootstrap-style-hook--" + screen);
+    }
+  }]);
+
+  return Styles;
+}();
+/**
+ * Class for adding CSS custom properties in the customize preview.
+ *
+ * @package   Rootstrap Styles
+ * @author    Sky Shabatura
+ * @copyright Copyright (c) 2019, Sky Shabatura
+ * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
 
 
-/***/ })
+var CustomProperty =
+/*#__PURE__*/
+function () {
+  "use strict";
 
-/******/ });
+  function CustomProperty(data) {
+    _classCallCheck(this, CustomProperty);
+
+    if (!data.name) return false;
+    this.screen = data.screen;
+    this.name = data.name;
+    this.selector = data.selector;
+    this.id = this.screen ? "".concat(data.name, "--").concat(data.screen) : data.name;
+
+    if (data.value && '' !== data.value) {
+      this.value = data.value;
+      this.insertStyleblock();
+    } else {
+      this.removeStyleblock();
+    }
+  }
+
+  _createClass(CustomProperty, [{
+    key: "insertStyleblock",
+    value: function insertStyleblock() {
+      var oldBlock = document.getElementById(this.id);
+
+      if (oldBlock) {
+        oldBlock.innerHTML = this.getStyleBlockContent();
+      } else {
+        document.head.insertBefore(this.getStyleBlock(), this.getHook());
+      }
+    }
+  }, {
+    key: "removeStyleblock",
+    value: function removeStyleblock() {
+      var styleBlock = document.getElementById(this.id);
+
+      if (styleBlock) {
+        styleBlock.remove();
+      }
+    }
+  }, {
+    key: "openQuery",
+    value: function openQuery() {
+      if (!this.screen) return '';
+      var screens = rootstrapScreens;
+      var screen = screens[this.screen];
+      var query = '';
+
+      if (screen.min || screen.max) {
+        query += '@media ';
+
+        if (screen.min) {
+          query += "(min-width: ".concat(screen.min, ")");
+
+          if (screen.max) {
+            query += ' and ';
+          }
+        }
+
+        if (screen.max) {
+          query += "(max-width: ".concat(screen.max, ")");
+        }
+
+        query += '{';
+      }
+
+      return query;
+    }
+  }, {
+    key: "getStyles",
+    value: function getStyles() {
+      if (!this.name || !this.value) return '';
+      var output = this.selector ? "".concat(this.selector, " {") : ':root {';
+      output += "--".concat(this.name, ": ").concat(this.value, ";");
+      output += '}';
+      return output;
+    }
+  }, {
+    key: "closeQuery",
+    value: function closeQuery() {
+      return this.screen && 'default' !== this.screen ? '}' : '';
+    }
+  }, {
+    key: "getStyleBlockContent",
+    value: function getStyleBlockContent() {
+      return this.openQuery() + this.getStyles() + this.closeQuery();
+    }
+  }, {
+    key: "getStyleBlock",
+    value: function getStyleBlock() {
+      var styleblock = document.createElement("style");
+      styleblock.setAttribute("id", this.id);
+      styleblock.textContent = this.getStyleBlockContent();
+      return styleblock;
+    }
+  }, {
+    key: "getHook",
+    value: function getHook() {
+      var screen = this.screen ? this.screen : 'default';
+      return document.getElementById("rootstrap-style-hook--" + screen);
+    }
+  }]);
+
+  return CustomProperty;
+}();
+/**
+ * Script for interfacing with Rootstrap Styles in the customize preview.
+ *
+ * @package   Rootstrap Styles
+ * @author    Sky Shabatura
+ * @copyright Copyright (c) 2019, Sky Shabatura
+ * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
+
+
+var rootstrap = {
+  style: function style(data) {
+    var style = new Styles(data);
+  },
+  customProperty: function customProperty(data) {
+    var customProperty = new CustomProperty(data);
+  }
+};

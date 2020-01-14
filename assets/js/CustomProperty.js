@@ -1,5 +1,5 @@
 /**
- * Scripts for working with customizer preview actions
+ * Class for adding CSS custom properties in the customize preview.
  *
  * @package   Rootstrap Styles
  * @author    Sky Shabatura
@@ -7,16 +7,13 @@
  * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
-
-/**
- * Class for adding CSS custom properties
- */
-export class CustomProperty {
+class CustomProperty {
 
     constructor( data ) {
         if ( !data.name ) return false;
         this.screen = data.screen;
         this.name = data.name;
+        this.selector = data.selector;
         this.id = ( this.screen ) ? `${data.name}--${data.screen}` : data.name;
         if(data.value && '' !== data.value) {
             this.value = data.value;
@@ -47,7 +44,7 @@ export class CustomProperty {
 
     openQuery() {
         if( !this.screen ) return '';
-        const screens = parent.rootstrapData.screens;
+        const screens = rootstrapScreens;
         const screen = screens[this.screen];
         var query = '';
 
@@ -73,7 +70,7 @@ export class CustomProperty {
 
     getStyles() {
         if( !this.name || !this.value ) return '';
-        var output = ':root {';
+        var output = ( this.selector ) ? `${this.selector} {` : ':root {';
         output += `--${this.name}: ${this.value};`;
         output += '}';
         return output;

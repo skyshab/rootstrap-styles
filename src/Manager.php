@@ -79,9 +79,7 @@ class Manager implements Bootable {
         // Add inline styles to customize preview
         add_action( 'wp_head', [ $this, 'previewStyles' ] );
 
-        // Add customize preview style refresh action
-        add_action( 'rootstrap/customize-register/partials', [ $this, 'partials' ] );
-
+        // Enqueue customize preview scripts
         add_action( 'customize_preview_init', [ $this, 'customizePreview'  ] );
     }
 
@@ -112,51 +110,7 @@ class Manager implements Bootable {
         }
 
         echo $this->styles->getCustomizePreview();
-
-        // Print a styleblock with classes for our script.
-        // printf('<style id="%s-inline-css" class="rootstrap-style-block">%s</style>', $this->handle, $this->styles() );
-
-        // Print script for Chrome bug fix.
-        echo "<script>window.addEventListener('resize',()=>{document.querySelectorAll('.rootstrap-style-block').forEach(block=>{block.title=''})});</script>";
-
     }
-
-    // Get inline styles.
-    // This should only be accessed after "wp"
-    // public function styles() {
-    //     return $this->styles->getStyles();
-    // }
-
-
-    /**
-     * Refresh customize preview styles when these settings are changed.
-     *
-     * @since  1.0.0
-     * @access public
-     * @param object $manager - instance of WP_Customize_Manager
-     * @return void
-     */
-    public function partials( WP_Customize_Manager $manager) {
-
-        if( ! isset($manager->selective_refresh) ) {
-            return;
-        }
-
-        // Define the styleblock id
-        $selector = sprintf('#%s-inline-css', $this->handle);
-
-        // Filter to add controls that trigger style refresh.
-        $controls = apply_filters("rootstrap/styles/{$this->handle}/previewRefresh", []);
-
-        // Add partials
-        array_map( function($id) use ($manager, $selector) {
-            $manager->selective_refresh->add_partial( $id, [
-                'selector'          => $selector,
-                'render_callback'   => [$this, 'styles'],
-            ]);
-        }, $controls );
-    }
-
 
     /**
      * Enqueue customize preview scripts
@@ -165,9 +119,9 @@ class Manager implements Bootable {
      *
      * @since 1.0.0
      */
-    public function customize_preview() {
+    public function customizePreview() {
 
-        $resources = vendor_path() . '/skyshab/rootstrap-sequences/dist';
-        wp_enqueue_script( 'rootstrap-customize-preview', "{$resources}/js/customize-preview.min.js", [], filemtime( get_template_directory().'/style.css' ) );
+        $resources = vendor_path() . '/skyshab/rootstrap-styles/dist';
+        wp_enqueue_script( 'rootstrap-customize-preview', "{$resources}/js/customize-preview.js", [], filemtime( get_template_directory().'/style.css' ) );
     }
 }

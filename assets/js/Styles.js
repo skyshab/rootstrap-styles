@@ -1,17 +1,13 @@
 /**
- * Scripts for working with customizer preview actions
+ * Class for adding live styles in the customize preview.
  *
  * @package   Rootstrap Styles
  * @author    Sky Shabatura
- * @copyright Copyright (c) 2019, Sky Shabatura
+ * @copyright Copyright (c) 2020, Sky Shabatura
  * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
-
-/**
- * Class for adding styles
- */
-export class Styles {
+class Styles {
 
     constructor( data ) {
         if ( !data.id || !data.selector ) return false;
@@ -35,7 +31,7 @@ export class Styles {
 
     openQuery() {
         if( !this.screen ) return '';
-        const screens = parent.rootstrapData.screens;
+        const screens = rootstrapScreens;
         const screen = screens[this.screen];
         var query = '';
 

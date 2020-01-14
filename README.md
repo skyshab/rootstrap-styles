@@ -1,7 +1,7 @@
 # Rootstrap Styles
 
-Version: 1.0.0
-Released: 10/29/2019
+Version: 1.1.0
+Released: 1/14/2020
 
 ## Description
 
