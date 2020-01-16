@@ -50,7 +50,7 @@ class Manager implements Bootable {
      * @param object $screens - Screens Collection
      * @return void
      */
-    public function __construct( string $handle, Screens $screens ) {
+    public function __construct( $handle = false, $screens = false ) {
 
         // If no handle, bail
         if( ! $handle || ! $screens ) return;
