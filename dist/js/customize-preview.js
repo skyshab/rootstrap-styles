@@ -142,7 +142,12 @@ function () {
     this.screen = data.screen;
     this.name = data.name;
     this.selector = data.selector;
-    this.id = this.screen ? "".concat(data.name, "--").concat(data.screen) : data.name;
+
+    if (data.id) {
+      this.id = this.screen ? "".concat(data.id, "--").concat(data.screen) : data.id;
+    } else {
+      this.id = this.screen ? "".concat(data.name, "--").concat(data.screen) : data.name;
+    }
 
     if (data.value && '' !== data.value) {
       this.value = data.value;

@@ -10,12 +10,21 @@
 class CustomProperty {
 
     constructor( data ) {
-        if ( !data.name ) return false;
-        this.screen = data.screen;
-        this.name = data.name;
-        this.selector = data.selector;
-        this.id = ( this.screen ) ? `${data.name}--${data.screen}` : data.name;
-        if(data.value && '' !== data.value) {
+
+        if ( ! data.name ) return false;
+
+        this.screen     = data.screen;
+        this.name       = data.name;
+        this.selector   = data.selector;
+
+        if( data.id ) {
+            this.id     = ( this.screen ) ? `${data.id}--${data.screen}`    : data.id;
+        }
+        else {
+            this.id     = ( this.screen ) ? `${data.name}--${data.screen}`  : data.name;
+        }
+
+        if( data.value && '' !== data.value ) {
             this.value = data.value;
             this.insertStyleblock();
         } else {
@@ -24,6 +33,7 @@ class CustomProperty {
     }
 
     insertStyleblock() {
+
         const oldBlock = document.getElementById( this.id );
 
         if( oldBlock ) {
@@ -35,6 +45,7 @@ class CustomProperty {
     }
 
     removeStyleblock() {
+
         const styleBlock = document.getElementById( this.id );
 
         if( styleBlock ) {
@@ -43,7 +54,9 @@ class CustomProperty {
     }
 
     openQuery() {
+
         if( !this.screen ) return '';
+
         const screens = rootstrapScreens;
         const screen = screens[this.screen];
         var query = '';
