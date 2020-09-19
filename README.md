@@ -1,6 +1,6 @@
 # Rootstrap Styles
 
-Version: 1.1.0
+Version: 1.1.1
 Released: 1/14/2020
 
 ## Description
@@ -33,4 +33,4 @@ Read the project wiki: https://github.com/skyshab/rootstrap-styles/wiki
 
 This project is licensed under the [GNU GPL](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html), version 2 or later.
 
-2019 &copy; [Sky Shabatura](https://github.com/skyshab)
+2020 &copy; [Sky Shabatura](https://github.com/skyshab)
